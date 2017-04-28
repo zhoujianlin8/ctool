@@ -1,0 +1,121 @@
+@import "ui-ctool/build/less/reset";
+@import "ui-ctool/build/less/loading";
+@import "ui-ctool/build/less/modal";
+/* 单行省略号处理 */
+.ofh {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* 多行省略号处理 */
+.ofmh {
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.clearfix {
+  *zoom: 1
+}
+
+.clearfix:after {
+  display: block;
+  content: "";
+  height: 0;
+  font-size: 0;
+  clear: both
+}
+
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+
+.text-hide {
+  text-indent: -9999em;
+  overflow: hidden;
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.inline-b {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+}
+
+.btn {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  text-decoration: none;
+}
+
+.tl {
+  text-align: left !important;
+}
+
+.tc {
+  text-align: center !important;
+}
+
+.tr {
+  text-align: right !important;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+/*对于640 10等分 1rem = 64px*/
+.ptr(@p,@v) {
+  @{p}: @v/64rem;
+}
+/*对字体进行处理不用rem*/
+.px2px(@name, @px){
+  @{name}: round(@px / 2) * 1px;
+  [data-dpr="2"] & {
+    @{name}: @px * 1px;
+  }
+  // for mx3
+  [data-dpr="2.5"] & {
+    @{name}: round(@px * 2.5 / 2) * 1px;
+  }
+  // for 小米note
+  [data-dpr="2.75"] & {
+    @{name}: round(@px * 2.75 / 2) * 1px;
+  }
+  [data-dpr="3"] & {
+    @{name}: round(@px / 2 * 3) * 1px
+  }
+  // for 三星note4
+  [data-dpr="4"] & {
+    @{name}: @px * 2px;
+  }
+}

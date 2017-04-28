@@ -1,0 +1,25 @@
+{
+  "name": "<%=appname%>",
+  "group": "<%=group%>",
+  "version": "@branch@",
+  "type": "ctool",
+  "csstype": "less",
+  "options": {
+    
+  },
+  "proxyRules":[
+  	{
+  	 "pattern" : "http://g.assets.daily.taobao.net/<%=group%>/<%=appname%>/0.0.1",
+  	 "target": "http://127.0.0.1:8009/src"
+  	},
+  	{
+  	 "pattern" : "http://g.alicdn.com/<%=group%>/<%=appname%>/0.0.1",
+  	 "target": "http://127.0.0.1:8009/src"
+  	}
+  ],
+  "awpWebapp": {
+    "dailyAppID": "",
+    "onlineAppID": "",
+    "appDir": ""
+  }
+}

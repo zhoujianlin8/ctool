@@ -1,0 +1,30 @@
+{
+  "name": "@ali/<%=appname%>",
+  "version": "0.0.1",
+  "description": "<%=appname%>",
+  "repository": "https://gitlab.alibaba-inc.com/<%=group%>/<%=appname%>",
+  "main": "src/p/index/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.alibaba-inc.com:<%=group%>/<%=appname%>.git"
+  },
+  "publishConfig": {
+    "registry": "http://registry.npm.alibaba-inc.com"
+  },
+  "author": {
+    "name": "<%=author%>"
+  },
+  "maintainers": [
+    {
+      "name": "<%=author%>",
+      "email": "<%=email%>"
+    }
+  ],
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "ui-ctool": "git+http://gitlab.alibaba-inc.com/jianlin.zjl/ui-ctool.git"
+  }
+}

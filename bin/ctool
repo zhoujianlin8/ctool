@@ -1,0 +1,105 @@
+#!/usr/bin/env node
+var program = require('ginit').commander;
+var ctool = require('../index');
+var util = require('util');
+var packageJSON = require(__dirname+'/../package.json');
+var helpInfo = {
+  '--root': ['项目目录，如果指定的不是项目目录，将从此目录向上寻找最近的项目目录。', 'Project directory.'],
+  'init': ['初始化项目目录。', 'Init project directory'],
+  'c': ['创建模块\n 使用方法:\n `ctool c <模块名称> [模板名]`', 'common related'],
+  'p': ['创建页面\n 使用方法:\n `ctool p <页面名称> [模板名]`', 'Page related'],
+  'r':['创建路由\n 使用方法:\n `ctool r <路由名称> [模板名]`', 'router related'],
+  'data':['创建数据文件\n 使用方法:\n `ctool data <文件名称> [模板名]`', 'data related'],
+  'build': ['构建项目。', 'Build Project.'],
+  'task': ['执行gulp task 任务。', 'gulp task'],
+  'start': ['启动项目调试服务器', 'Start up project debug server.'],
+  'ut': ['更新自定义template使用方法:\n `ctool  ut<模板路径> `', 'update template'],
+  '--port': ['调试服务启动的端口，默认是9000。', 'debug server port,deault is 9000'],
+  '--buildTo': ['打包到文件，默认是build。', 'buildTo']
+};
+
+var lang = process.env.LANG || 'zh';
+lang = (lang.indexOf('zh') === 0) ? 0 : 1;
+program
+  .version(packageJSON.version)
+  .option('-p, --port <port>', helpInfo['--port'][lang])
+  .option('-b, --buildTo <buildTo>', helpInfo['--buildTo'][lang]);
+program
+  .command('init [template]')
+  .description(helpInfo['init'][lang])
+  .action(function (template) {
+    ctool.init(template);
+  });
+
+program
+  .command('c <name>')
+  .description(helpInfo['c'][lang])
+  .action(function (name) {
+    ctool.addCommon(name);
+  });
+
+program
+  .command('p <name> [type]')
+  .description(helpInfo['p'][lang])
+  .action(function (name, type) {
+    ctool.addPage(name,type);
+  });
+program
+  .command('r <name> [type]')
+  .description(helpInfo['r'][lang])
+  .action(function (name,type) {
+    ctool.addRouter(name,type);
+  });
+program
+  .command('data <name>')
+  .description(helpInfo['data'][lang])
+  .action(function (name) {
+    ctool.addData(name);
+  });
+program
+  .command('build [type]')
+  .description(helpInfo['build'][lang])
+  .action(function () {
+    ctool.tasks({
+      tasks: 'build',
+      buildTo: program.buildTo
+    });
+   // process.exit(0);
+  });
+program
+  .command('task <task>')
+  .description(helpInfo['task'][lang])
+  .action(function (task) {
+    ctool.tasks({
+      tasks: task,
+      buildTo: program.buildTo
+    });
+    // process.exit(0);
+  });
+
+program
+  .command('start [type]')
+  .description(helpInfo['start'][lang])
+  .action(function (type) {
+    ctool.start({
+      port: program.port,
+      isWeinre: type === 'weinre' ||  type === 'wp',
+      isProxy: type === 'proxy' ||  type === 'wp'
+    });
+  });
+
+program
+  .command('ut <template>')
+  .description(helpInfo['ut'][lang])
+  .action(function (template) {
+    ctool.updateTemplate(template);
+  });
+
+program
+  .command('*')
+  .description('deploy the given env')
+  .action(function (env) {
+    console.log('env',env)
+  });
+program.parse(process.argv);
+
